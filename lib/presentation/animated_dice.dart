@@ -9,7 +9,7 @@ class AnimatedDice extends AnimatedWidget {
     final animation = listenable as Animation<IconData>;
     return Center(
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         child: Icon(
           animation.value,
           size: 100,

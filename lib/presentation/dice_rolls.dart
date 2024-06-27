@@ -76,8 +76,8 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
         //   dices.map((dice) => dice.diceValue).toList().join(', '),
         //   style: Theme.of(context).textTheme.headlineMedium,
         // ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _buildDices(),
         ),
         const SizedBox(height: 30),

@@ -38,6 +38,7 @@ class _EnterPlayersState extends State<EnterPlayers> {
       ),
       body: Center(
         child: Column(
+           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Players:'),
             ...showPlayers(),
