@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import '../domain/models.dart';
 
 class EnterPlayers extends StatefulWidget {
-  const EnterPlayers({super.key});
+  int numberOfPlayers;
+  EnterPlayers({super.key, required this.numberOfPlayers});
 
   @override
   State<EnterPlayers> createState() => _EnterPlayersState();
@@ -36,6 +37,7 @@ class _EnterPlayersState extends State<EnterPlayers> {
       appBar: AppBar(
         title: Text('Enter Players',  style: TextStyle(color:  Theme.of(context).colorScheme.onPrimary)),
          backgroundColor:  Theme.of(context).colorScheme.primary,
+         foregroundColor:  Theme.of(context).colorScheme.onPrimary ,
       ),
       body: Center(
         child: Column(
