@@ -39,6 +39,8 @@ dependencies:
   editable: ^2.0.0
   collection: ^1.18.0
   provider: ^6.1.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +56,27 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+flutter_icons: 
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/wurfel.png"
+  min_sdk_android: 21
+  web: 
+    generate: true
+    image_path: "assets/icon/wurfel.png"
+    background_color: "#000000"
+    theme_color: "#000000"
+  windows:
+    generate: true
+    image_path: "assets/icon/wurfel.png"
+    icon_size: 48
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/icon/wurfel.png"
+  android: true
+  ios: true
+
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -61,7 +84,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    -  assets/icon/wurfel.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
