@@ -16,7 +16,9 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.watch<GameModel>().currentPlayer.name),
+        title: Text(context.watch<GameModel>().currentPlayer.name ,style: TextStyle(color:  Theme.of(context).colorScheme.onPrimary) ),
+         backgroundColor:  Theme.of(context).colorScheme.primary,
+         foregroundColor:  Theme.of(context).colorScheme.onPrimary ,
       ),
       // appBar: AppBar(
       //   title: Consumer<Game>(

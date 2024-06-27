@@ -34,7 +34,8 @@ class _EnterPlayersState extends State<EnterPlayers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter Players'),
+        title: Text('Enter Players',  style: TextStyle(color:  Theme.of(context).colorScheme.onPrimary)),
+         backgroundColor:  Theme.of(context).colorScheme.primary,
       ),
       body: Center(
         child: Column(
