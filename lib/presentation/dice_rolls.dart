@@ -1,7 +1,7 @@
 import 'package:dice_icons/dice_icons.dart';
 import 'package:flutter/material.dart';
 
-import '../domain/dice.dart';
+import '../domain/models.dart';
 import 'animated_dice.dart';
 
 class DiceRolls extends StatefulWidget {
@@ -12,19 +12,10 @@ class DiceRolls extends StatefulWidget {
 }
 
 class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
-  final List<IconData> _diceIcons = [
-    DiceIcons.dice0,
-    DiceIcons.dice1,
-    DiceIcons.dice2,
-    DiceIcons.dice3,
-    DiceIcons.dice4,
-    DiceIcons.dice5,
-    DiceIcons.dice6,
-  ];
-
-  final int _numberDices = 5;
+  late int _numberDices;
   late List<Dice> dices;
-  late List<IconData> sequenceDices;
+  List<IconData> sequenceDices = Dice().diceIcons.toList()
+    ..add(DiceIcons.dice0);
   late TweenSequence<IconData> sequence;
 
   void _rollDices() {
@@ -32,16 +23,6 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
       dice.rollDice();
     }
   }
-
-  // void _rollDice(Dice dice) async {
-  //   int value;
-  //   value = Random().nextInt(6) + 1;
-  //   dice.diceValue = value;
-  //   dice.diceIcon = _diceIcons.elementAt(value);
-
-  //   await dice.controller.forward(from: 0.0);
-  //   dice.controller.value = value / 7.0;
-  // }
 
   void _rollAnimations() async {
     for (var dice in dices) {
@@ -66,8 +47,8 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _numberDices = 5;
     dices = List.generate(_numberDices, (index) => Dice());
-    sequenceDices = List<IconData>.from(_diceIcons)..add(DiceIcons.dice0);
     sequence = TweenSequence<IconData>(sequenceDices
         .map((icon) => TweenSequenceItem<IconData>(
             tween: ConstantTween<IconData>(icon), weight: 1))

@@ -38,6 +38,7 @@ dependencies:
   dice_icons: ^0.1.7
   editable: ^2.0.0
   collection: ^1.18.0
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

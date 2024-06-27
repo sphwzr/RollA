@@ -1,7 +1,10 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:kniffel/presentation/dice_rolls.dart';
+import 'package:kniffel/presentation/enter_players.dart';
+import 'package:provider/provider.dart';
+
+import 'domain/models.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +16,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        useMaterial3: true,
+    return ChangeNotifierProvider<GameModel>(
+      create: (context) => GameModel(),
+      child: MaterialApp(
+        title: 'Flutter',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+          useMaterial3: true,
+        ),
+        home: const EnterPlayers(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -33,8 +39,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> {
   // List columns = [
   //   {"title": 'Wurf', "key":'roll'},
   //   {"title": 'Punkte', "key":'point'},
@@ -59,44 +64,7 @@ class _MyHomePageState extends State<MyHomePage>
         title: Text(widget.title),
       ),
       body: const Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // DiceRoll(),
-            DiceRolls(),
-            // Column(
-            //   children: [
-            //     Table(
-            //       border: TableBorder.all(),
-            //       columnWidths: const <int, TableColumnWidth>{
-            //         0: IntrinsicColumnWidth(),
-            //         1: FlexColumnWidth(),
-            //         2: FixedColumnWidth(64),
-            //       },
-            //       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            //       children: <TableRow>[
-            //         TableRow(
-            //           children: <Widget>[
-            //             const Text("1er"),
-            //             const Text("nur Einser zählen"),
-            //             // Checkbox(value: value, onChanged: onChanged)
-
-            //           ],
-            //         ),
-            //         TableRow(
-            //           children: <Widget>[
-            //             const Text("2er"),
-            //             const Text("nur Zweier zählen"),
-            //           ],
-            //         ),
-            //       ],
-            //     ),
-
-            //   ],
-            // ),
-          ],
-        ),
+        child: EnterPlayers(),
       ),
     );
   }

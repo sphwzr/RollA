@@ -4,7 +4,7 @@ import 'package:dice_icons/dice_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:kniffel/presentation/animated_dice.dart';
 
-import '../domain/dice.dart';
+import '../domain/models.dart';
 
 class DiceRoll extends StatefulWidget {
   const DiceRoll({super.key});
@@ -44,11 +44,9 @@ class _DiceRollState extends State<DiceRoll>
     int value;
     value = Random().nextInt(6) + 1;
     _setDice(value);
-    
 
     await _controller.forward(from: 0.0);
     _controller.value = value / 7.0;
-    
 
     value = Random().nextInt(6) + 1;
     _setDice2(value);
@@ -93,7 +91,7 @@ class _DiceRollState extends State<DiceRoll>
   // }
 
   void _rollAnimation() async {
-  _controller = AnimationController(
+    _controller = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
