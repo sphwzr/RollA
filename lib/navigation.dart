@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kniffel/main.dart';
 import 'package:kniffel/presentation/choose_numberof_players.dart';
-import 'package:kniffel/presentation/enter_players.dart';
 import 'package:kniffel/presentation/highscore.dart';
 import 'package:kniffel/presentation/rules.dart';
 
