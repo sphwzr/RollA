@@ -21,7 +21,7 @@ final router = GoRouter(
       routes: [
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => ChoosNumberOfPlayers(),
+          builder: (context, state) => ChooseNumberOfPlayers(),
           path: '/',
         ),
         GoRoute(

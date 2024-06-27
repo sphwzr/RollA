@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 
 import '../domain/models.dart';
 
-class ChoosNumberOfPlayers extends StatefulWidget {
-  const ChoosNumberOfPlayers({super.key});
+class ChooseNumberOfPlayers extends StatefulWidget {
+  const ChooseNumberOfPlayers({super.key});
 
   @override
-  State<ChoosNumberOfPlayers> createState() => _ChoosNumberOfPlayersState();
+  State<ChooseNumberOfPlayers> createState() => _ChooseNumberOfPlayers();
 }
 
-class _ChoosNumberOfPlayersState extends State<ChoosNumberOfPlayers> {
+class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
   List<Widget> showPlayers() {
     return context
         .read<GameModel>()
