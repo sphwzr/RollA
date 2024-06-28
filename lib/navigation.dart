@@ -5,8 +5,7 @@ import 'package:kniffel/presentation/choose_numberof_players.dart';
 import 'package:kniffel/presentation/highscore.dart';
 import 'package:kniffel/presentation/rules.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
-    GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
@@ -14,24 +13,22 @@ final router = GoRouter(
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) =>
-         MyHomePage(title: '',
-         child: child),
+      builder: (context, state, child) => MyHomePage(title: '', child: child),
       routes: [
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => ChooseNumberOfPlayers(),
+          builder: (context, state) => const ChooseNumberOfPlayers(),
           path: '/',
         ),
         GoRoute(
           path: '/highscore',
           parentNavigatorKey: _shellNavigatorKey,
           builder: (context, state) => HighscoreScreen(),
-          ),
+        ),
         GoRoute(
           path: '/rules',
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => RulesScreen(),
+          builder: (context, state) => const RulesScreen(),
         ),
       ],
     )

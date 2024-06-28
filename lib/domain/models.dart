@@ -109,7 +109,8 @@ class DiceRoll {
 
 class Player {
   String name;
-  List<DiceRoll> diceRolls = List.empty(growable: true);
+  List<DiceRoll> diceRolls = List.generate(3, (index) => DiceRoll());
+  List<int> selectedDiceValues = List.generate(5, (index) => 0);
   KniffelSheet kniffelSheet = KniffelSheet();
 
   Player(this.name);
@@ -117,11 +118,71 @@ class Player {
   int getNumberOfRolls() {
     return diceRolls.length;
   }
+
+  void setDiceRoll(int index, DiceRoll diceRoll) {
+    diceRolls[index] = diceRoll;
+  }
 }
 
 class KniffelSheet {
-  List<int> upperSection = List.generate(6, (index) => 0);
-  List<int> lowerSection = List.generate(7, (index) => 0);
+  List<int> upperSection = List.generate(9, (index) => 0);
+  List<String> upperSectionTitles = [
+    '1s',
+    '2s',
+    '3s',
+    '4s',
+    '5s',
+    '6s',
+    'Sum',
+    'Bonus',
+    'Total',
+  ];
+  List<int> lowerSection = List.generate(8, (index) => 0);
+  List<String> lowerSectionTitles = [
+    '3 of A Kind',
+    '4 of A Kind',
+    'Full House',
+    'Small Street',
+    'Big Street',
+    'Kniffel',
+    'Chance',
+    'Total',
+  ];
+
+  List<int> scores = List.generate(3, (index) => 0);
+  List<String> scoreTitles = [
+    'Upper Section Total',
+    'Lower Section Total',
+    'Final Score'
+  ];
+
+  String getSectionElementTitle(int section, int index) {
+    return section == 0
+        ? getUpperSectionTitle(index)
+        : getLowerSectionTitle(index);
+  }
+
+  String getUpperSectionTitle(int index) {
+    return upperSectionTitles[index];
+  }
+
+  String getLowerSectionTitle(int index) {
+    return lowerSectionTitles[index];
+  }
+
+  int getSectionElementValue(int section, int index) {
+    return section == 0
+        ? getUpperSectionElementValue(index)
+        : getLowerSectionElementValue(index);
+  }
+
+  int getUpperSectionElementValue(int index) {
+    return upperSection[index];
+  }
+
+  int getLowerSectionElementValue(int index) {
+    return lowerSection[index];
+  }
 
   void setUpperSection(int value, int amount) {
     upperSection[value - 1] = value * amount;
@@ -165,6 +226,24 @@ class KniffelSheet {
 
   int getUpperSectionTotal() {
     return getUpperSectionSum() + getUpperSectionBonus();
+  }
+
+  int getLowerSectionTotal() {
+    return lowerSection.reduce((value, element) => value + element);
+  }
+
+  int getFinalScore() {
+    return getUpperSectionTotal() + getLowerSectionTotal();
+  }
+
+  void setScore(int index, int value) {
+    scores[index] = value;
+  }
+
+  void updateScores() {
+    scores[0] = getUpperSectionTotal();
+    scores[1] = getLowerSectionTotal();
+    scores[2] = getFinalScore();
   }
 }
 

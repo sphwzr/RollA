@@ -95,7 +95,7 @@ class _DiceRollState extends State<DiceRoll>
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    _controller2 = new AnimationController(
+    _controller2 = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
