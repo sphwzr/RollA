@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kniffel/domain/game_model.dart';
 import 'package:kniffel/presentation/dice_rolls.dart';
 import 'package:kniffel/presentation/kniffel_sheet_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../domain/models.dart';
+import '../domain/dice_model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -13,6 +14,26 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  Consumer<GameModel> _buildSelectedDiceText() {
+    return Consumer<GameModel>(
+      builder: (context, model, child) {
+        return RichText(
+          text: TextSpan(children: [
+            const TextSpan(
+              text: "Selected Dices: ",
+            ),
+            ...model.currentPlayer.selectedDiceValues.map((value) {
+              return WidgetSpan(
+                  child: InkWell(
+                      onTap: () => model.removeCurrentPlayerDiceValue(value),
+                      child: Icon(Dice().diceIcons[value])));
+            })
+          ]),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var model = context.watch<GameModel>();
@@ -29,7 +50,9 @@ class _GameScreenState extends State<GameScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const DiceRolls(),
+            _buildSelectedDiceText(),
+            DiceRolls(currentPlayer: player),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(

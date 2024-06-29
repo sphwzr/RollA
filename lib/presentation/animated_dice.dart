@@ -12,7 +12,7 @@ class AnimatedDice extends AnimatedWidget {
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Icon(
           animation.value,
-          size: 100,
+          size: 60,
         ),
       ),
     );

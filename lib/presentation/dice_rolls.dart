@@ -1,11 +1,17 @@
 import 'package:dice_icons/dice_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:kniffel/domain/dice_roll_model.dart';
+import 'package:kniffel/domain/game_model.dart';
+import 'package:kniffel/domain/player_model.dart';
+import 'package:provider/provider.dart';
 
-import '../domain/models.dart';
+import '../domain/dice_model.dart';
 import 'animated_dice.dart';
 
 class DiceRolls extends StatefulWidget {
-  const DiceRolls({super.key});
+  const DiceRolls({super.key, required this.currentPlayer});
+
+  final Player currentPlayer;
 
   @override
   State<DiceRolls> createState() => _DiceRollsState();
@@ -19,9 +25,17 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
   late TweenSequence<IconData> sequence;
 
   void _rollDices() {
+    DiceRoll rolled = DiceRoll();
+    var model = Provider.of<GameModel>(context, listen: false);
+
     for (var dice in dices) {
       dice.rollDice();
+      rolled.dices.where((element) => element.diceValue == 0).first.diceValue =
+          dice.diceValue;
     }
+
+    model.currentPlayer.addDiceRoll(rolled);
+    model.nextRoll();
   }
 
   void _rollAnimations() async {
@@ -39,9 +53,23 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
   }
 
   List<Widget> _buildDices() {
-    var widgets =
-        dices.map((dice) => AnimatedDice(animation: dice.animation)).toList();
-    return widgets;
+    var widgets = dices
+        .map((dice) => InkWell(
+            onTap: () {
+              Provider.of<GameModel>(context, listen: false)
+                  .addCurrentPlayerDiceValue(dice.diceValue);
+            },
+            child: AnimatedDice(animation: dice.animation)))
+        .toList();
+    var rows = <Widget>[
+      Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: widgets.sublist(0, 3)),
+      Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: widgets.sublist(3, 5))
+    ];
+    return rows;
   }
 
   @override
@@ -81,13 +109,14 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
           children: _buildDices(),
         ),
         const SizedBox(height: 30),
-        FloatingActionButton(
-          onPressed: _rollDices,
-          tooltip: 'Roll',
-          child: const Icon(
-            Icons.casino,
+        if (Provider.of<GameModel>(context).currentRoll < 3)
+          FloatingActionButton(
+            onPressed: _rollDices,
+            tooltip: 'Roll',
+            child: const Icon(
+              Icons.casino,
+            ),
           ),
-        ),
       ],
     );
   }

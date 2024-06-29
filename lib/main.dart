@@ -2,10 +2,9 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kniffel/domain/game_model.dart';
 import 'package:kniffel/navigation.dart';
 import 'package:provider/provider.dart';
-
-import 'domain/models.dart';
 
 void main() {
   runApp(const MyApp());
