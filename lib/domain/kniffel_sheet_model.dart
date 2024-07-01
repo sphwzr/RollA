@@ -65,68 +65,78 @@ class KniffelSheet extends ChangeNotifier {
     return lowerSection[index];
   }
 
-  void setSheetValues(int sectionIndex, int rowIndex, DiceRoll diceRoll) {
+  bool setSheetValues(int sectionIndex, int rowIndex, DiceRoll diceRoll) {
+    bool success = false;
     if (sectionIndex == 0) {
       _setUpperSection(rowIndex, diceRoll);
+      success = true;
     } else {
       switch (rowIndex) {
         case 0:
-          _setThreeOfAKind(diceRoll);
+          success = _setThreeOfAKind(diceRoll);
           break;
         case 1:
-          _setFourOfAKind(diceRoll);
+          success = _setFourOfAKind(diceRoll);
           break;
         case 2:
-          _setFullHouse(diceRoll);
+          success = _setFullHouse(diceRoll);
           break;
         case 3:
-          _setSmallStreet(diceRoll);
+          success = _setSmallStreet(diceRoll);
           break;
         case 4:
-          _setLargeStreet(diceRoll);
+          success = _setLargeStreet(diceRoll);
           break;
         case 5:
-          _setKniffel(diceRoll);
+          success = _setKniffel(diceRoll);
           break;
         case 6:
-          _setChance(diceRoll);
+          success = _setChance(diceRoll);
           break;
       }
     }
     updateScores();
     notifyListeners();
+    return success;
   }
 
   void _setUpperSection(int rowIndex, DiceRoll diceRoll) {
     upperSection[rowIndex] = diceRoll.getRollSumOf(rowIndex + 1);
   }
 
-  void _setThreeOfAKind(DiceRoll diceRoll) {
+  bool _setThreeOfAKind(DiceRoll diceRoll) {
     if (diceRoll.isThreeOfAKind()) lowerSection[0] = diceRoll.getRollSum();
+    return diceRoll.isThreeOfAKind();
   }
 
-  void _setFourOfAKind(DiceRoll diceRoll) {
+  bool _setFourOfAKind(DiceRoll diceRoll) {
     if (diceRoll.isFourOfAKind()) lowerSection[1] = diceRoll.getRollSum();
+    return diceRoll.isFourOfAKind();
   }
 
-  void _setFullHouse(DiceRoll diceRoll) {
+  bool _setFullHouse(DiceRoll diceRoll) {
     if (diceRoll.isFullHouse()) lowerSection[2] = 25;
+    return diceRoll.isFullHouse();
   }
 
-  void _setSmallStreet(DiceRoll diceRoll) {
+  bool _setSmallStreet(DiceRoll diceRoll) {
     if (diceRoll.isSmallStreet()) lowerSection[3] = 30;
+    return diceRoll.isSmallStreet();
   }
 
-  void _setLargeStreet(DiceRoll diceRoll) {
+  bool _setLargeStreet(DiceRoll diceRoll) {
     if (diceRoll.isLargeStreet()) lowerSection[4] = 40;
+    return diceRoll.isLargeStreet();
   }
 
-  void _setKniffel(DiceRoll diceRoll) {
+  bool _setKniffel(DiceRoll diceRoll) {
     if (diceRoll.isKniffel()) lowerSection[5] = 50;
+    return diceRoll.isKniffel();
   }
 
-  void _setChance(DiceRoll diceRoll) {
+  bool _setChance(DiceRoll diceRoll) {
     lowerSection[6] = diceRoll.getRollSum();
+    return true;
   }
 
   int getUpperSectionSum() {

@@ -26,7 +26,11 @@ class GameModel extends ChangeNotifier {
   }
 
   void nextPlayer() {
+    if (currentPlayerIndex == players.length - 1) {
+      nextRound();
+    }
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    resetRoll();
     notifyListeners();
   }
 
