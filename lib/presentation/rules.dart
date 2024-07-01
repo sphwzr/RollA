@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 class RulesScreen extends StatelessWidget {
+  const RulesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kniffel Rules' , style: TextStyle(color:  Theme.of(context).colorScheme.onPrimary)),
-        backgroundColor:  Theme.of(context).colorScheme.primary,
+        title: Text('Kniffel Rules',
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

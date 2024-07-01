@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kniffel/domain/game_model.dart';
+import 'package:kniffel/domain/player_model.dart';
 import 'package:kniffel/presentation/game_screen.dart';
 import 'package:provider/provider.dart';
-
-import '../domain/models.dart';
 
 class EnterPlayers extends StatefulWidget {
   final int numberOfPlayers;
