@@ -13,22 +13,30 @@ class EnterPlayers extends StatefulWidget {
 }
 
 class _EnterPlayersState extends State<EnterPlayers> {
-  List<Widget> showPlayers() {
-    return context
-        .read<GameModel>()
-        .players
-        .map((player) => Text(player.name))
-        .toList();
-  }
+  List<Player> newPlayers = [];
+  List<TextEditingController> controllers = [];
 
-  @override
-  void initState() {
-    super.initState();
-    var players = List.generate(4, (index) => Player('Player ${index + 1}'));
-    var model = context.read<GameModel>();
-    for (var player in players) {
-      model.addPlayer(player);
+  List<Widget> _createEnterPlayer() {
+    var playerCount = widget.numberOfPlayers;
+    var playerWidgets = <Widget>[];
+    for (var i = 0; i < playerCount; i++) {
+      controllers.add(TextEditingController());
+      playerWidgets.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+          child: TextField(
+            controller: controllers[i],
+            // onChanged: (value) {
+            //   newPlayers.add(Player(controller.value.text));
+            // },
+            decoration: InputDecoration(
+              labelText: 'Player ${i + 1}',
+            ),
+          ),
+        ),
+      );
     }
+    return playerWidgets;
   }
 
   @override
@@ -45,12 +53,17 @@ class _EnterPlayersState extends State<EnterPlayers> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Players:'),
-            ...showPlayers(),
+            ..._createEnterPlayer(),
             const SizedBox(
               height: 10,
             ),
             ElevatedButton(
               onPressed: () {
+                var model = context.read<GameModel>();
+                for (var controller in controllers) {
+                  newPlayers.add(Player(controller.value.text));
+                }
+                model.addPlayers(newPlayers);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const GameScreen(),

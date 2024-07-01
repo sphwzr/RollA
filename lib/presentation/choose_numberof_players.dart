@@ -23,11 +23,8 @@ class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
   @override
   void initState() {
     super.initState();
-    var players = List.generate(4, (index) => Player('Player ${index + 1}'));
     var model = context.read<GameModel>();
-    for (var player in players) {
-      model.addPlayer(player);
-    }
+    model.resetGame();
   }
 
   @override

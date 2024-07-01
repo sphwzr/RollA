@@ -20,6 +20,12 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addPlayers(List<Player> players) {
+    for (var player in players) {
+      addPlayer(player);
+    }
+  }
+
   void addPlayer(Player player) {
     players.add(player);
     notifyListeners();
