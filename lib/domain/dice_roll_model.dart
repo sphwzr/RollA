@@ -51,8 +51,8 @@ class DiceRoll {
   }
 
   bool isStreet(int length) {
-    int sequenceLength = 0;
-    List<int> values = dices.map((e) => e.diceValue).toList();
+    int sequenceLength = 1;
+    List<int> values = dices.map((e) => e.diceValue).toSet().toList();
     values.sort();
 
     values.reduce((previous, element) {
