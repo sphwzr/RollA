@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kniffel/domain/dice_roll_model.dart';
 
 class KniffelSheet extends ChangeNotifier {
-  List<int> upperSection = List.generate(9, (index) => 0);
+  List<int> upperSection = List.generate(9, (index) => -1);
   final List<String> _upperSectionTitles = [
     '1s',
     '2s',
@@ -14,7 +14,7 @@ class KniffelSheet extends ChangeNotifier {
     'Bonus',
     'Total',
   ];
-  List<int> lowerSection = List.generate(8, (index) => 0);
+  List<int> lowerSection = List.generate(8, (index) => -1);
   final List<String> _lowerSectionTitles = [
     '3 of A Kind',
     '4 of A Kind',
@@ -63,6 +63,16 @@ class KniffelSheet extends ChangeNotifier {
 
   int getLowerSectionElementValue(int index) {
     return lowerSection[index];
+  }
+
+  bool crossElementOut(int sectionIndex, int rowIndex) {
+    if (sectionIndex == 0) {
+      upperSection[rowIndex] = 0;
+    } else {
+      lowerSection[rowIndex] = 0;
+    }
+    notifyListeners();
+    return true;
   }
 
   bool setSheetValues(int sectionIndex, int rowIndex, DiceRoll diceRoll) {
@@ -140,7 +150,8 @@ class KniffelSheet extends ChangeNotifier {
   }
 
   int getUpperSectionSum() {
-    return upperSection.reduce((value, element) => value + element);
+    return upperSection
+        .reduce((value, element) => element > 0 ? value + element : value);
   }
 
   int getUpperSectionBonus() {
@@ -152,7 +163,8 @@ class KniffelSheet extends ChangeNotifier {
   }
 
   int getLowerSectionTotal() {
-    return lowerSection.reduce((value, element) => value + element);
+    return lowerSection
+        .reduce((value, element) => element > 0 ? value + element : value);
   }
 
   int getFinalScore() {

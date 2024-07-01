@@ -27,7 +27,8 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         currentSheet.getSectionElementTitle(sectionIndex, rowIndex);
     int elementValue =
         currentSheet.getSectionElementValue(sectionIndex, rowIndex);
-    String elementValueString = elementValue > 0 ? elementValue.toString() : '';
+    String elementValueString =
+        elementValue >= 0 ? elementValue.toString() : '';
 
     return InkWell(
       onTap: () {
@@ -52,6 +53,17 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
               elementValueString,
               style: const TextStyle(fontSize: 13.0),
             ),
+            TextButton(
+              onPressed: () {
+                var success =
+                    currentSheet.crossElementOut(sectionIndex, rowIndex);
+                if (_isDisabled || !success) return;
+                setState(() {
+                  _isDisabled = true;
+                });
+              },
+              child: const Icon(Icons.clear),
+            )
           ],
         ),
       ),
