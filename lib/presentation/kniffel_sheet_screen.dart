@@ -31,9 +31,9 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
 
     return InkWell(
       onTap: () {
-        if (_isDisabled) return;
-        currentSheet.setSheetValues(sectionIndex, rowIndex,
+        bool success = currentSheet.setSheetValues(sectionIndex, rowIndex,
             widget.currentPlayer.getSelectedDiceValuesAsDiceRoll());
+        if (_isDisabled || !success) return;
         setState(() {
           _isDisabled = true;
         });

@@ -19,9 +19,11 @@ class Dice {
   late AnimationController controller;
   late Animation<IconData> animation;
   bool _isSelected = false;
+  bool _isVisible = true;
 
   List<IconData> get diceIcons => _diceIcons;
   bool get isSelected => _isSelected;
+  bool get isVisible => _isVisible;
 
   void toggleSelected() {
     _isSelected = !_isSelected;
@@ -29,6 +31,14 @@ class Dice {
 
   void resetSelected() {
     _isSelected = false;
+  }
+
+  void toggleVisibility() {
+    _isVisible = !_isVisible;
+  }
+
+  void resetVisibility() {
+    _isVisible = true;
   }
 
   void setDiceValue(int value) {

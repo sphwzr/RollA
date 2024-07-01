@@ -31,6 +31,9 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
     var model = Provider.of<GameModel>(context, listen: false);
 
     for (var dice in dices) {
+      if (dice.isSelected) {
+        dice.toggleVisibility();
+      }
       dice.resetSelected();
       dice.rollDice();
       rolled.dices.where((element) => element.diceValue == 0).first.diceValue =
@@ -57,18 +60,23 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
 
   List<Widget> _buildDices() {
     var widgets = dices
-        .map((dice) => InkWell(
-            onTap: () {
-              if (dice.isSelected) {
-                Provider.of<GameModel>(context, listen: false)
-                    .removeCurrentPlayerDiceValue(dice.diceValue);
-              } else {
-                Provider.of<GameModel>(context, listen: false)
-                    .addCurrentPlayerDiceValue(dice.diceValue);
-              }
-              dice.toggleSelected();
-            },
-            child: AnimatedDice(animation: dice.animation)))
+        .map((dice) => Visibility(
+              maintainAnimation: true,
+              maintainState: true,
+              visible: dice.isVisible,
+              child: InkWell(
+                  onTap: () {
+                    if (dice.isSelected) {
+                      Provider.of<GameModel>(context, listen: false)
+                          .removeCurrentPlayerDiceValue(dice.diceValue);
+                    } else {
+                      Provider.of<GameModel>(context, listen: false)
+                          .addCurrentPlayerDiceValue(dice.diceValue);
+                    }
+                    dice.toggleSelected();
+                  },
+                  child: AnimatedDice(animation: dice.animation)),
+            ))
         .toList();
     var rows = <Widget>[
       Row(
