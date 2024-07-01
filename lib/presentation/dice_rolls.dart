@@ -33,11 +33,14 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
     for (var dice in dices) {
       if (dice.isSelected) {
         dice.toggleVisibility();
+      } else {
+        dice.rollDice();
+        rolled.dices
+            .where((element) => element.diceValue == 0)
+            .first
+            .diceValue = dice.diceValue;
       }
       dice.resetSelected();
-      dice.rollDice();
-      rolled.dices.where((element) => element.diceValue == 0).first.diceValue =
-          dice.diceValue;
     }
 
     model.currentPlayer.addDiceRoll(rolled);
@@ -60,24 +63,34 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
 
   List<Widget> _buildDices() {
     var widgets = dices
-        .map((dice) => Visibility(
-              maintainAnimation: true,
-              maintainState: true,
-              visible: dice.isVisible,
-              child: InkWell(
-                  onTap: () {
-                    if (dice.isSelected) {
-                      Provider.of<GameModel>(context, listen: false)
-                          .removeCurrentPlayerDiceValue(dice.diceValue);
-                    } else {
-                      Provider.of<GameModel>(context, listen: false)
-                          .addCurrentPlayerDiceValue(dice.diceValue);
-                    }
-                    dice.toggleSelected();
-                  },
-                  child: AnimatedDice(animation: dice.animation)),
-            ))
+        .asMap()
+        .map((i, dice) => MapEntry(
+            i,
+            Stack(
+              children: [
+                Visibility(
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: dice.isVisible,
+                  child: InkWell(
+                      onTap: () {
+                        var provider =
+                            Provider.of<GameModel>(context, listen: false);
+                        if (dice.isSelected) {
+                          provider.removeCurrentPlayerDiceValue(dice.diceValue);
+                          provider.currentPlayer.toggleSelectedDiceIndex(i);
+                        } else {
+                          provider.addCurrentPlayerDiceValue(dice.diceValue);
+                        }
+                        dice.toggleSelected();
+                      },
+                      child: AnimatedDice(animation: dice.animation)),
+                ),
+              ],
+            )))
+        .values
         .toList();
+
     var rows = <Widget>[
       Row(
           mainAxisAlignment: MainAxisAlignment.center,

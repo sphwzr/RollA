@@ -7,6 +7,7 @@ class Player extends ChangeNotifier {
   String name;
   List<DiceRoll> diceRolls = List.empty(growable: true);
   List<int> selectedDiceValues = List.empty(growable: true);
+  List<bool> isDiceIndexSelected = List.generate(5, (index) => false);
   KniffelSheet kniffelSheet = KniffelSheet();
 
   Player(this.name);
@@ -41,6 +42,11 @@ class Player extends ChangeNotifier {
 
   void resetSelectedDice() {
     selectedDiceValues.clear();
+    notifyListeners();
+  }
+
+  void toggleSelectedDiceIndex(int index) {
+    isDiceIndexSelected[index] = !isDiceIndexSelected[index];
     notifyListeners();
   }
 

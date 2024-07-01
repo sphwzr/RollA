@@ -34,6 +34,19 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  void _selectRemainingDices() {
+    var model = context.read<GameModel>();
+
+    if (model.currentPlayer.selectedDiceValues.length < 5) {
+      for (var dice in model.currentPlayer.diceRolls.last.dices) {
+        if (!dice.isSelected) {
+          model.addCurrentPlayerDiceValue(dice.diceValue);
+        }
+      }
+    }
+    ;
+  }
+
   @override
   Widget build(BuildContext context) {
     var model = context.watch<GameModel>();
@@ -53,25 +66,28 @@ class _GameScreenState extends State<GameScreen> {
             _buildSelectedDiceText(),
             DiceRolls(currentPlayer: player),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        KniffelSheetScreen(currentPlayer: player),
-                  ),
-                )
-                    .then((value) {
-                  if (model.currentRound == 13) {
-                    model.resetGame();
-                  } else {
-                    model.nextPlayer();
-                  }
-                });
-              },
-              child: const Text('Enter in Sheet'),
-            ),
+            if (model.currentRoll == 3)
+              ElevatedButton(
+                onPressed: () {
+                  _selectRemainingDices();
+                  Navigator.of(context)
+                      .push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          KniffelSheetScreen(currentPlayer: player),
+                    ),
+                  )
+                      .then((value) {
+                    if (model.currentRound == 13) {
+                      // TODO: Show winner
+                      model.resetGame();
+                    } else {
+                      model.nextPlayer();
+                    }
+                  });
+                },
+                child: const Text('Enter in Sheet'),
+              ),
           ],
         ),
       ),
