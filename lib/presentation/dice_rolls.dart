@@ -1,19 +1,14 @@
-import 'dart:io';
-
 import 'package:dice_icons/dice_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/dice_roll_model.dart';
+import 'package:kniffel/domain/dice_model.dart';
 import 'package:kniffel/domain/game_model.dart';
 import 'package:kniffel/domain/player_model.dart';
 import 'package:provider/provider.dart';
-
-import '../domain/dice_model.dart';
 import 'animated_dice.dart';
 
 class DiceRolls extends StatefulWidget {
-  const DiceRolls({super.key, required this.currentPlayer});
-
-  final Player currentPlayer;
+  Player currentPlayer;
+  DiceRolls({super.key, required this.currentPlayer});
 
   @override
   State<DiceRolls> createState() => _DiceRollsState();
@@ -27,24 +22,18 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
   late TweenSequence<IconData> sequence;
 
   void _rollDices() {
-    DiceRoll rolled = DiceRoll();
-    var model = Provider.of<GameModel>(context, listen: false);
-
     for (var dice in dices) {
       if (dice.isSelected) {
         dice.toggleVisibility();
       } else {
         dice.rollDice();
-        rolled.dices
-            .where((element) => element.diceValue == 0)
-            .first
-            .diceValue = dice.diceValue;
+        // rolled.dices
+        //     .where((element) => element.diceValue == 0)
+        //     .first
+        //     .diceValue = dice.diceValue;
       }
       dice.resetSelected();
     }
-
-    model.currentPlayer.addDiceRoll(rolled);
-    model.nextRoll();
   }
 
   void _rollAnimations() async {
@@ -115,15 +104,6 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(covariant DiceRolls oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.currentPlayer != widget.currentPlayer) {
-      dices = List.generate(_numberDices, (index) => Dice());
-      _rollAnimations();
-    }
-  }
-
-  @override
   void dispose() {
     for (var d in dices) {
       d.controller.dispose();
@@ -136,19 +116,25 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        // const Text(
+        //   'You have rolled:',
+        // ),
+        // Text(
+        //   dices.map((dice) => dice.diceValue).toList().join(', '),
+        //   style: Theme.of(context).textTheme.headlineMedium,
+        // ),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _buildDices(),
         ),
         const SizedBox(height: 30),
-        if (Provider.of<GameModel>(context).currentRoll < 3)
-          FloatingActionButton(
-            onPressed: _rollDices,
-            tooltip: 'Roll',
-            child: const Icon(
-              Icons.casino,
-            ),
+        FloatingActionButton(
+          onPressed: _rollDices,
+          tooltip: 'Roll',
+          child: const Icon(
+            Icons.casino,
           ),
+        ),
       ],
     );
   }
