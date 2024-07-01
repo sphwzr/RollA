@@ -58,8 +58,6 @@ class DiceRoll {
     values.reduce((previous, element) {
       if (previous + 1 == element) {
         sequenceLength++;
-      } else {
-        sequenceLength = 0;
       }
       return element;
     });
