@@ -55,12 +55,20 @@ class _GameScreenState extends State<GameScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
+                Navigator.of(context)
+                    .push(
                   MaterialPageRoute(
                     builder: (context) =>
                         KniffelSheetScreen(currentPlayer: player),
                   ),
-                );
+                )
+                    .then((value) {
+                  if (model.currentRound == 13) {
+                    model.resetGame();
+                  } else {
+                    model.nextPlayer();
+                  }
+                });
               },
               child: const Text('Enter in Sheet'),
             ),

@@ -18,8 +18,18 @@ class Dice {
   IconData diceIcon = DiceIcons.dice0;
   late AnimationController controller;
   late Animation<IconData> animation;
+  bool _isSelected = false;
 
   List<IconData> get diceIcons => _diceIcons;
+  bool get isSelected => _isSelected;
+
+  void toggleSelected() {
+    _isSelected = !_isSelected;
+  }
+
+  void resetSelected() {
+    _isSelected = false;
+  }
 
   void setDiceValue(int value) {
     diceValue = value;

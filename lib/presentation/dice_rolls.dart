@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dice_icons/dice_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:kniffel/domain/dice_roll_model.dart';
@@ -29,6 +31,7 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
     var model = Provider.of<GameModel>(context, listen: false);
 
     for (var dice in dices) {
+      dice.resetSelected();
       dice.rollDice();
       rolled.dices.where((element) => element.diceValue == 0).first.diceValue =
           dice.diceValue;
@@ -56,8 +59,14 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
     var widgets = dices
         .map((dice) => InkWell(
             onTap: () {
-              Provider.of<GameModel>(context, listen: false)
-                  .addCurrentPlayerDiceValue(dice.diceValue);
+              if (dice.isSelected) {
+                Provider.of<GameModel>(context, listen: false)
+                    .removeCurrentPlayerDiceValue(dice.diceValue);
+              } else {
+                Provider.of<GameModel>(context, listen: false)
+                    .addCurrentPlayerDiceValue(dice.diceValue);
+              }
+              dice.toggleSelected();
             },
             child: AnimatedDice(animation: dice.animation)))
         .toList();
@@ -85,6 +94,15 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
   }
 
   @override
+  void didUpdateWidget(covariant DiceRolls oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.currentPlayer != widget.currentPlayer) {
+      dices = List.generate(_numberDices, (index) => Dice());
+      _rollAnimations();
+    }
+  }
+
+  @override
   void dispose() {
     for (var d in dices) {
       d.controller.dispose();
@@ -97,13 +115,6 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        // const Text(
-        //   'You have rolled:',
-        // ),
-        // Text(
-        //   dices.map((dice) => dice.diceValue).toList().join(', '),
-        //   style: Theme.of(context).textTheme.headlineMedium,
-        // ),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: _buildDices(),

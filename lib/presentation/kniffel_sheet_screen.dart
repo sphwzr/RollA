@@ -14,13 +14,12 @@ class KniffelSheetScreen extends StatefulWidget {
 }
 
 class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
-  // KniffelSheet get currentSheet => widget.currentPlayer.kniffelSheet;
-
   TextStyle headingStyle = const TextStyle(
       fontSize: 15.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
   final shapeBorder = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(1.0),
       side: const BorderSide(color: Colors.black, width: 1.0));
+  bool _isDisabled = false;
 
   Widget _createTile(
       KniffelSheet currentSheet, int sectionIndex, int rowIndex) {
@@ -30,14 +29,18 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         currentSheet.getSectionElementValue(sectionIndex, rowIndex);
     String elementValueString = elementValue > 0 ? elementValue.toString() : '';
 
-    return ListTile(
-      shape: shapeBorder,
-      title: InkWell(
-        onTap: () {
-          currentSheet.setSheetValues(sectionIndex, rowIndex,
-              widget.currentPlayer.getSelectedDiceValuesAsDiceRoll());
-        },
-        child: Row(
+    return InkWell(
+      onTap: () {
+        if (_isDisabled) return;
+        currentSheet.setSheetValues(sectionIndex, rowIndex,
+            widget.currentPlayer.getSelectedDiceValuesAsDiceRoll());
+        setState(() {
+          _isDisabled = true;
+        });
+      },
+      child: ListTile(
+        shape: shapeBorder,
+        title: Row(
           children: [
             const SizedBox(width: 10),
             Text(
@@ -145,6 +148,13 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Kniffel Sheet'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget.currentPlayer.resetRound();
+          Navigator.pop(context);
+        },
+        child: const Icon(Icons.arrow_forward),
       ),
       body: Center(
         child: Column(
