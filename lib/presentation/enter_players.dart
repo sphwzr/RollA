@@ -5,8 +5,9 @@ import 'package:kniffel/presentation/game_screen.dart';
 import 'package:provider/provider.dart';
 
 class EnterPlayers extends StatefulWidget {
+  const EnterPlayers({super.key, required this.numberOfPlayers});
+
   final int numberOfPlayers;
-  EnterPlayers({super.key, required this.numberOfPlayers});
 
   @override
   State<EnterPlayers> createState() => _EnterPlayersState();

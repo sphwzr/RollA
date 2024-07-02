@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kniffel/domain/game_model.dart';
-import 'package:kniffel/domain/player_model.dart';
 import 'package:kniffel/presentation/enter_players.dart';
 import 'package:provider/provider.dart';
 
