@@ -63,6 +63,42 @@ class GameModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Player getWinner() {
+    return sortPlayersByScore().first;
+  }
+
+  List<Player> sortPlayersByScore() {
+    var sortedPlayers = players;
+    sortedPlayers.sort((a, b) => b.kniffelSheet
+        .getFinalScore()
+        .compareTo(a.kniffelSheet.getFinalScore()));
+    return sortedPlayers;
+  }
+
+  bool isGameOver() {
+    return currentRound == 12 && currentPlayerIndex == players.length - 1;
+  }
+
+  Widget getWinText() {
+    Player firstPlayer = sortPlayersByScore().first;
+    Player secondPlayer = sortPlayersByScore()[1];
+
+    bool isTie = firstPlayer.kniffelSheet.getFinalScore() ==
+        secondPlayer.kniffelSheet.getFinalScore();
+    var text = isTie
+        ? 'It\'s a tie! \n ${firstPlayer.name} and ${secondPlayer.name} won the game with ${firstPlayer.kniffelSheet.getFinalScore()}!'
+        : 'Congratulations ${getWinner().name}!\n You won the game with ${getWinner().kniffelSheet.getFinalScore()} points!';
+    return Column(
+      children: [
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
   Widget getSelectedDiceText({bool clickable = true}) {
     return RichText(
       text: TextSpan(children: [
@@ -74,7 +110,7 @@ class GameModel extends ChangeNotifier {
               child: InkWell(
                   onTap: () =>
                       clickable ? removeCurrentPlayerDiceValue(value) : null,
-                  child: Icon(Dice().diceIcons[value])));
+                  child: Icon(Dice().diceIcons[value], size: 30)));
         })
       ]),
     );

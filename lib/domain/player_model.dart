@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kniffel/domain/dice_model.dart';
 import 'package:kniffel/domain/dice_roll_model.dart';
 import 'package:kniffel/domain/kniffel_sheet_model.dart';
+import 'package:kniffel/domain/snackbar_model.dart';
 
 class Player extends ChangeNotifier {
   String name;
@@ -32,7 +33,8 @@ class Player extends ChangeNotifier {
     if (_selectedDiceValues.length < 5) {
       _selectedDiceValues.add(value);
     } else {
-      throw Exception('Too many dice selected');
+      SnackbarGlobal.show(
+          'Too many dice selected. \nPlease deselect some dice');
     }
     notifyListeners();
   }

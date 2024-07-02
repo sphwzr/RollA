@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kniffel/domain/game_model.dart';
 import 'package:kniffel/presentation/dice_rolls.dart';
 import 'package:kniffel/presentation/kniffel_sheet_screen.dart';
+import 'package:kniffel/presentation/win_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/dice_model.dart';
@@ -34,6 +35,24 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  // void addLastDiceRoll() {
+  //   var model = context.read<GameModel>();
+  //   var player = model.currentPlayer;
+  //   DiceRoll rolled = DiceRoll();
+
+  //   for (var dice in player.diceRolls.last.dices) {
+  //     if (dice.isSelected) {
+  //       dice.setVisibility(false);
+  //     }
+  //     rolled.dices
+  //         .where((element) => element.diceValue == 0)
+  //         .first
+  //         .setDice(dice);
+  //   }
+
+  //   model.currentPlayer.addDiceRoll(rolled);
+  // }
+
   @override
   Widget build(BuildContext context) {
     var model = context.watch<GameModel>();
@@ -56,7 +75,6 @@ class _GameScreenState extends State<GameScreen> {
             if (model.currentRoll == 3 || player.selectedDiceValues.length == 5)
               ElevatedButton(
                 onPressed: () {
-                  // _selectRemainingDices();
                   Navigator.of(context)
                       .push(
                     MaterialPageRoute(
@@ -65,9 +83,15 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   )
                       .then((value) {
-                    if (model.currentRound == 13) {
-                      // TODO: Show winner
-                      model.resetGame();
+                    // TODO: replace with 12 rounds
+                    // if (model.isGameOver())
+                    if (model.currentRound == 0 &&
+                        model.currentPlayerIndex == model.players.length - 1) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const WinScreen(),
+                        ),
+                      );
                     } else {
                       model.nextPlayer();
                     }

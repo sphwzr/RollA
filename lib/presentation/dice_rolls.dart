@@ -79,6 +79,7 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
                           provider.currentPlayer.toggleSelectedDiceIndex(i);
                         } else {
                           provider.addCurrentPlayerDiceValue(dice.diceValue);
+                          provider.currentPlayer.toggleSelectedDiceIndex(i);
                         }
                         dice.toggleSelected();
                       },

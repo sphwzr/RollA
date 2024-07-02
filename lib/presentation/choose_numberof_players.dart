@@ -20,9 +20,9 @@ class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    var model = context.read<GameModel>();
+  void didUpdateWidget(covariant ChooseNumberOfPlayers oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    var model = Provider.of<GameModel>(context, listen: false);
     model.resetGame();
   }
 
@@ -54,6 +54,7 @@ class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         onPressed: () {
+          Provider.of<GameModel>(context, listen: false).resetGame();
           Navigator.push(
             context,
             MaterialPageRoute(

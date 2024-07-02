@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kniffel/domain/dice_model.dart';
 import 'package:kniffel/domain/game_model.dart';
 import 'package:kniffel/domain/kniffel_sheet_model.dart';
 import 'package:kniffel/domain/player_model.dart';
@@ -162,13 +163,14 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
 
   void _selectRemainingDices() {
     var model = context.read<GameModel>();
-
-    if (model.currentPlayer.selectedDiceValues.length < 5) {
-      var visibleDices = model.currentPlayer.diceRolls.last.dices
-          .where((dice) => dice.isVisible)
-          .toList();
-      for (var dice in visibleDices) {
-        model.addCurrentPlayerDiceValue(dice.diceValue);
+    var player = model.currentPlayer;
+    if (player.selectedDiceValues.length < 5) {
+      // iterate through last diceRoll and add to selectedDiceValues if not selected
+      for (var i = 0; i < 5; i++) {
+        Dice dice = player.diceRolls.last.dices[i];
+        !player.isDiceIndexSelected[i]
+            ? model.addCurrentPlayerDiceValue(dice.diceValue)
+            : null;
       }
     }
   }
