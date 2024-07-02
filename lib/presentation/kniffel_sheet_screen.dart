@@ -40,8 +40,10 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         });
       },
       child: ListTile(
+        enabled: !_isDisabled,
         shape: shapeBorder,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const SizedBox(width: 10),
             Text(
@@ -53,6 +55,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
               elementValueString,
               style: const TextStyle(fontSize: 13.0),
             ),
+            const SizedBox(width: 20),
             TextButton(
               onPressed: () {
                 var success =
@@ -111,6 +114,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
                 return ListTile(
                   shape: shapeBorder,
                   title: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const SizedBox(width: 10),
                       Text(
@@ -119,9 +123,10 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        entry.value != 0 ? entry.value.toString() : '',
+                        entry.value.toString(),
                         style: const TextStyle(fontSize: 13.0),
                       ),
+                      const SizedBox(width: 150),
                     ],
                   ),
                 );

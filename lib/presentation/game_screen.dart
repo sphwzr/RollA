@@ -53,7 +53,7 @@ class _GameScreenState extends State<GameScreen> {
             _buildSelectedDiceText(),
             DiceRolls(currentPlayer: player),
             const SizedBox(height: 20),
-            if (model.currentRoll == 3)
+            if (model.currentRoll == 3 || player.selectedDiceValues.length == 5)
               ElevatedButton(
                 onPressed: () {
                   // _selectRemainingDices();
