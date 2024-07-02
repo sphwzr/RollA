@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kniffel/domain/game_model.dart';
+import 'package:kniffel/domain/highscore_storage.dart';
 import 'package:provider/provider.dart';
 
 class WinScreen extends StatefulWidget {
@@ -26,6 +26,7 @@ class _WinScreenState extends State<WinScreen> {
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<GameModel>(context);
+    final HighscoreStorage storage = HighscoreStorage();
 
     return Scaffold(
       appBar: AppBar(
@@ -48,8 +49,8 @@ class _WinScreenState extends State<WinScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                storage.saveAllHighscores(model.sortPlayersByScore());
                 model.resetGame();
-
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: const Text('Back to player selection'),

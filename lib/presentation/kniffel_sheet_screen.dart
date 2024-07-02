@@ -184,7 +184,6 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          widget.currentPlayer.resetRound();
           Navigator.pop(context);
         },
         child: const Icon(Icons.arrow_forward),

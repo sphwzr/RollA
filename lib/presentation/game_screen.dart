@@ -83,10 +83,7 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   )
                       .then((value) {
-                    // TODO: replace with 12 rounds
-                    // if (model.isGameOver())
-                    if (model.currentRound == 0 &&
-                        model.currentPlayerIndex == model.players.length - 1) {
+                    if (model.isGameOver()) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const WinScreen(),

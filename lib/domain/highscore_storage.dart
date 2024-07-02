@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:kniffel/domain/highscore.dart';
+import 'package:kniffel/domain/player_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HighscoreStorage {
@@ -20,6 +21,17 @@ class HighscoreStorage {
         highscores.map((score) => json.encode(score.toMap())).toList();
 
     await prefs.setStringList(_key, updatedScores);
+  }
+
+  Future<void> saveAllHighscores(List<Player> players) async {
+    for (var player in players) {
+      final highscore = Highscore(
+        name: player.name,
+        score: player.kniffelSheet.scores[2],
+        date: DateTime.now(),
+      );
+      await saveHighscore(highscore);
+    }
   }
 
   Future<List<Highscore>> getHighscores() async {

@@ -11,7 +11,9 @@ class GameModel extends ChangeNotifier {
   Player get currentPlayer => players[currentPlayerIndex];
 
   void addCurrentPlayerDiceValue(int value) {
-    currentPlayer.setSelectedDice(value);
+    if (currentPlayer.selectedDiceValues.length < 5) {
+      currentPlayer.setSelectedDice(value);
+    }
     notifyListeners();
   }
 
@@ -35,6 +37,7 @@ class GameModel extends ChangeNotifier {
     if (currentPlayerIndex == players.length - 1) {
       nextRound();
     }
+    currentPlayer.resetRound();
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
     resetRoll();
     notifyListeners();
