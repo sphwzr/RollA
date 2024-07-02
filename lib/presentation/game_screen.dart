@@ -34,19 +34,6 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  void _selectRemainingDices() {
-    var model = context.read<GameModel>();
-
-    if (model.currentPlayer.selectedDiceValues.length < 5) {
-      for (var dice in model.currentPlayer.diceRolls.last.dices) {
-        if (!dice.isSelected) {
-          model.addCurrentPlayerDiceValue(dice.diceValue);
-        }
-      }
-    }
-    ;
-  }
-
   @override
   Widget build(BuildContext context) {
     var model = context.watch<GameModel>();
@@ -69,7 +56,7 @@ class _GameScreenState extends State<GameScreen> {
             if (model.currentRoll == 3)
               ElevatedButton(
                 onPressed: () {
-                  _selectRemainingDices();
+                  // _selectRemainingDices();
                   Navigator.of(context)
                       .push(
                     MaterialPageRoute(

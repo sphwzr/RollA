@@ -33,6 +33,10 @@ class Dice {
     _isSelected = false;
   }
 
+  void setVisibility(bool value) {
+    _isVisible = value;
+  }
+
   void toggleVisibility() {
     _isVisible = !_isVisible;
   }
@@ -44,6 +48,12 @@ class Dice {
   void setDiceValue(int value) {
     diceValue = value;
     diceIcon = _diceIcons[value];
+  }
+
+  void setDice(Dice dice) {
+    setDiceValue(dice.diceValue);
+    _isSelected = dice.isSelected;
+    _isVisible = dice._isVisible;
   }
 
   void rollDice() async {

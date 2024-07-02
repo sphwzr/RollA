@@ -6,9 +6,11 @@ import 'package:kniffel/domain/kniffel_sheet_model.dart';
 class Player extends ChangeNotifier {
   String name;
   List<DiceRoll> diceRolls = List.empty(growable: true);
-  List<int> selectedDiceValues = List.empty(growable: true);
+  final List<int> _selectedDiceValues = List.empty(growable: true);
   List<bool> isDiceIndexSelected = List.generate(5, (index) => false);
   KniffelSheet kniffelSheet = KniffelSheet();
+
+  List<int> get selectedDiceValues => _selectedDiceValues;
 
   Player(this.name);
 
@@ -27,8 +29,8 @@ class Player extends ChangeNotifier {
   }
 
   void setSelectedDice(int value) {
-    if (selectedDiceValues.length < 5) {
-      selectedDiceValues.add(value);
+    if (_selectedDiceValues.length < 5) {
+      _selectedDiceValues.add(value);
     } else {
       throw Exception('Too many dice selected');
     }
@@ -36,12 +38,12 @@ class Player extends ChangeNotifier {
   }
 
   void removeSelectedDice(int value) {
-    selectedDiceValues.remove(value);
+    _selectedDiceValues.remove(value);
     notifyListeners();
   }
 
   void resetSelectedDice() {
-    selectedDiceValues.clear();
+    _selectedDiceValues.clear();
     notifyListeners();
   }
 
@@ -52,7 +54,7 @@ class Player extends ChangeNotifier {
 
   DiceRoll getSelectedDiceValuesAsDiceRoll() {
     DiceRoll diceRoll = DiceRoll();
-    diceRoll.dices = selectedDiceValues
+    diceRoll.dices = _selectedDiceValues
         .map((e) => Dice()..setDiceValue(e))
         .toList(growable: false);
     return diceRoll;

@@ -155,8 +155,22 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
     );
   }
 
+  void _selectRemainingDices() {
+    var model = context.read<GameModel>();
+
+    if (model.currentPlayer.selectedDiceValues.length < 5) {
+      var visibleDices = model.currentPlayer.diceRolls.last.dices
+          .where((dice) => dice.isVisible)
+          .toList();
+      for (var dice in visibleDices) {
+        model.addCurrentPlayerDiceValue(dice.diceValue);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _selectRemainingDices();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Kniffel Sheet'),
