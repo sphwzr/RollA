@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/highscore.dart';
+import 'package:kniffel/domain/general/highscore.dart';
 
 class HighscoreItem extends StatelessWidget {
   final Highscore highscore;

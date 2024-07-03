@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/game_model.dart';
-import 'package:kniffel/domain/player_model.dart';
-import 'package:kniffel/presentation/game_screen.dart';
+import 'package:kniffel/domain/game/game_model.dart';
+import 'package:kniffel/domain/player/player_model.dart';
+import 'package:kniffel/presentation/game/game_screen.dart';
 import 'package:provider/provider.dart';
 
 class EnterPlayers extends StatefulWidget {

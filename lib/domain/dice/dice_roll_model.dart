@@ -1,4 +1,4 @@
-import 'package:kniffel/domain/dice_model.dart';
+import 'package:kniffel/domain/dice/dice_model.dart';
 
 class DiceRoll {
   List<Dice> dices = [Dice(), Dice(), Dice(), Dice(), Dice()];

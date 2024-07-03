@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/dice_roll_model.dart';
+import 'package:kniffel/domain/dice/dice_roll_model.dart';
 
 class KniffelSheet extends ChangeNotifier {
   List<int> upperSection = List.generate(9, (index) => -1);

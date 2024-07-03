@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/dice_model.dart';
-import 'package:kniffel/domain/player_model.dart';
+import 'package:kniffel/domain/dice/dice_model.dart';
+import 'package:kniffel/domain/player/player_model.dart';
 
 class GameModel extends ChangeNotifier {
   List<Player> players = [];

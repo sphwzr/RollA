@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'package:kniffel/domain/highscore.dart';
-import 'package:kniffel/domain/player_model.dart';
+import 'package:kniffel/domain/general/highscore.dart';
+import 'package:kniffel/domain/player/player_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class HighscoreStorage{
+abstract class HighscoreStorage {
   Future<void> saveHighscore(Highscore highscore);
   Future<void> saveAllHighscores(List<Player> players);
   Future<List<Highscore>> getHighscores();
 }
-class ImplementedHighscoreStorage extends HighscoreStorage{
+
+class ImplementedHighscoreStorage extends HighscoreStorage {
   static const String _key = 'highscores';
   @override
   Future<void> saveHighscore(Highscore highscore) async {
@@ -27,6 +28,7 @@ class ImplementedHighscoreStorage extends HighscoreStorage{
 
     await prefs.setStringList(_key, updatedScores);
   }
+
   @override
   Future<void> saveAllHighscores(List<Player> players) async {
     for (var player in players) {
@@ -38,6 +40,7 @@ class ImplementedHighscoreStorage extends HighscoreStorage{
       await saveHighscore(highscore);
     }
   }
+
   @override
   Future<List<Highscore>> getHighscores() async {
     final prefs = await SharedPreferences.getInstance();

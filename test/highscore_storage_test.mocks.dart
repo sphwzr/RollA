@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:kniffel/domain/highscore.dart' as _i4;
-import 'package:kniffel/domain/highscore_storage.dart' as _i2;
-import 'package:kniffel/domain/player_model.dart' as _i5;
+import 'package:kniffel/domain/general/highscore.dart' as _i4;
+import 'package:kniffel/domain/general/highscore_storage.dart' as _i2;
+import 'package:kniffel/domain/player/player_model.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

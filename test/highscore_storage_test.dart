@@ -1,5 +1,4 @@
-
-import 'package:kniffel/domain/highscore_storage.dart';
+import 'package:kniffel/domain/general/highscore_storage.dart';
 import 'package:mockito/annotations.dart';
 
 @GenerateMocks([HighscoreStorage])

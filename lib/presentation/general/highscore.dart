@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/highscore.dart';
-import 'package:kniffel/domain/highscore_storage.dart';
-import 'package:kniffel/widget/highscore_item.dart';
+import 'package:kniffel/domain/general/highscore.dart';
+import 'package:kniffel/domain/general/highscore_storage.dart';
+import 'package:kniffel/presentation/general/highscore_item.dart';
 
 class HighscoreScreen extends StatelessWidget {
   final HighscoreStorage storage;

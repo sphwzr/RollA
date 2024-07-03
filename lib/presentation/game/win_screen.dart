@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/game_model.dart';
-import 'package:kniffel/domain/highscore_storage.dart';
+import 'package:kniffel/domain/game/game_model.dart';
+import 'package:kniffel/domain/general/highscore_storage.dart';
 import 'package:provider/provider.dart';
 
 class WinScreen extends StatefulWidget {

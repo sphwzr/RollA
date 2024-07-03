@@ -2,8 +2,8 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kniffel/domain/game_model.dart';
-import 'package:kniffel/navigation.dart';
+import 'package:kniffel/domain/game/game_model.dart';
+import 'package:kniffel/presentation/general/navigation.dart';
 import 'package:provider/provider.dart';
 
 void main() {

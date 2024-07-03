@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kniffel/domain/highscore.dart';
-import 'package:kniffel/domain/highscore_storage.dart';
-import 'package:kniffel/widget/highscore_item.dart';
-import 'package:kniffel/presentation/highscore.dart';
+import 'package:kniffel/domain/general/highscore.dart';
+import 'package:kniffel/domain/general/highscore_storage.dart';
+import 'package:kniffel/presentation/general/highscore_item.dart';
+import 'package:kniffel/presentation/general/highscore.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

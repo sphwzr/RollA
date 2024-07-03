@@ -1,11 +1,11 @@
 import 'package:dice_icons/dice_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/dice_roll_model.dart';
-import 'package:kniffel/domain/game_model.dart';
-import 'package:kniffel/domain/player_model.dart';
+import 'package:kniffel/domain/dice/dice_roll_model.dart';
+import 'package:kniffel/domain/game/game_model.dart';
+import 'package:kniffel/domain/player/player_model.dart';
 import 'package:provider/provider.dart';
 
-import '../domain/dice_model.dart';
+import '../../domain/dice/dice_model.dart';
 import 'animated_dice.dart';
 
 class DiceRolls extends StatefulWidget {

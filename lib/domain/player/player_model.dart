@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kniffel/domain/dice_model.dart';
-import 'package:kniffel/domain/dice_roll_model.dart';
-import 'package:kniffel/domain/kniffel_sheet_model.dart';
-import 'package:kniffel/domain/snackbar_model.dart';
+import 'package:kniffel/domain/dice/dice_model.dart';
+import 'package:kniffel/domain/dice/dice_roll_model.dart';
+import 'package:kniffel/domain/game/kniffel_sheet_model.dart';
+import 'package:kniffel/domain/general/snackbar_model.dart';
 
 class Player extends ChangeNotifier {
   String name;
