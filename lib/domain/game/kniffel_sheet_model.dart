@@ -78,7 +78,7 @@ class KniffelSheet extends ChangeNotifier {
   bool setSheetValues(int sectionIndex, int rowIndex, DiceRoll diceRoll) {
     bool success = false;
     if (sectionIndex == 0) {
-      if (upperSection[rowIndex] == -1) {
+      if (upperSection[rowIndex] == -1 && rowIndex < 6) {
         _setUpperSection(rowIndex, diceRoll);
         success = true;
       }

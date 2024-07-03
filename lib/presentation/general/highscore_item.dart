@@ -12,24 +12,20 @@ class HighscoreItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Text(
-        '$index',
-        style: TextStyle(
+        '${index + 1}',
+        style: const TextStyle(
           fontSize: 24,
-          color: Theme.of(context).colorScheme.onSecondary,
         ),
       ),
       title: Text(
         highscore.name,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 24,
-          color: Theme.of(context).colorScheme.onSecondary,
         ),
       ),
       subtitle: Text(
         'Score: ${highscore.score}\nDate: ${highscore.date.toLocal()}',
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSecondary,
-        ),
+        style: const TextStyle(),
       ),
       isThreeLine: true,
     );
