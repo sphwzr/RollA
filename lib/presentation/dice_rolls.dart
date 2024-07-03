@@ -72,16 +72,18 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
                   visible: dice.isVisible,
                   child: InkWell(
                       onTap: () {
-                        var provider =
+                        var model =
                             Provider.of<GameModel>(context, listen: false);
-                        if (dice.isSelected) {
-                          provider.removeCurrentPlayerDiceValue(dice.diceValue);
-                          provider.currentPlayer.toggleSelectedDiceIndex(i);
-                        } else {
-                          provider.addCurrentPlayerDiceValue(dice.diceValue);
-                          provider.currentPlayer.toggleSelectedDiceIndex(i);
+                        if (model.currentRoll < 3) {
+                          if (dice.isSelected) {
+                            model.removeCurrentPlayerDiceValue(dice.diceValue);
+                            model.currentPlayer.toggleSelectedDiceIndex(i);
+                          } else {
+                            model.addCurrentPlayerDiceValue(dice.diceValue);
+                            model.currentPlayer.toggleSelectedDiceIndex(i);
+                          }
+                          dice.toggleSelected();
                         }
-                        dice.toggleSelected();
                       },
                       child: AnimatedDice(animation: dice.animation)),
                 ),

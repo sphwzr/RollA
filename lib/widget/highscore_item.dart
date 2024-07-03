@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kniffel/domain/highscore.dart';
 
-
 class HighscoreItem extends StatelessWidget {
   final Highscore highscore;
   final int index;
 
-  const HighscoreItem({super.key, required this.highscore, required this.index});
+  const HighscoreItem(
+      {super.key, required this.highscore, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class HighscoreItem extends StatelessWidget {
           color: Theme.of(context).colorScheme.onSecondary,
         ),
       ),
-      isThreeLine: true, 
+      isThreeLine: true,
     );
   }
 }

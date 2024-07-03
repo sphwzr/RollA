@@ -162,13 +162,14 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
   }
 
   void _selectRemainingDices() {
-    var model = context.read<GameModel>();
+    var model = Provider.of<GameModel>(context);
     var player = model.currentPlayer;
-    if (player.selectedDiceValues.length < 5) {
+    if (player.getNumberOfRolls() != 0 &&
+        player.selectedDiceValues.length < 5) {
       // iterate through last diceRoll and add to selectedDiceValues if not selected
       for (var i = 0; i < 5; i++) {
         Dice dice = player.diceRolls.last.dices[i];
-        !player.isDiceIndexSelected[i]
+        !dice.isSelected
             ? model.addCurrentPlayerDiceValue(dice.diceValue)
             : null;
       }
@@ -177,10 +178,11 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var model = Provider.of<GameModel>(context);
     _selectRemainingDices();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kniffel Sheet'),
+        title: Text('Kniffel Sheet of ${model.currentPlayer.name}'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -192,8 +194,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Provider.of<GameModel>(context)
-                .getSelectedDiceText(clickable: false),
+            model.getSelectedDiceText(clickable: false),
             const Text('Enter Scores Here:'),
             _createSheet(),
           ],

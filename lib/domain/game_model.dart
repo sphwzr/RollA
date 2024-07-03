@@ -103,19 +103,23 @@ class GameModel extends ChangeNotifier {
   }
 
   Widget getSelectedDiceText({bool clickable = true}) {
-    return RichText(
-      text: TextSpan(children: [
-        const TextSpan(
-          text: "Selected Dices: ",
+    return Column(
+      children: [
+        const Text(
+          "Selected Dices:",
         ),
-        ...currentPlayer.selectedDiceValues.map((value) {
-          return WidgetSpan(
-              child: InkWell(
-                  onTap: () =>
-                      clickable ? removeCurrentPlayerDiceValue(value) : null,
-                  child: Icon(Dice().diceIcons[value], size: 30)));
-        })
-      ]),
+        const SizedBox(height: 10),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ...currentPlayer.selectedDiceValues.map(
+            (value) {
+              return InkWell(
+                  onTap: () => removeCurrentPlayerDiceValue(value),
+                  child: Icon(Dice().diceIcons[value]));
+            },
+          ),
+        ]),
+        const SizedBox(height: 20)
+      ],
     );
   }
 }

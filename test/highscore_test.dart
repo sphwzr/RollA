@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kniffel/domain/highscore.dart';
 import 'package:kniffel/domain/highscore_storage.dart';
-import 'package:kniffel/widget/HighscoreItem.dart';
+import 'package:kniffel/widget/highscore_item.dart';
 import 'package:kniffel/presentation/highscore.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -18,7 +18,8 @@ void main() {
       mockStorage = MockHighscoreStorage();
     });
 
-    testWidgets('displays loading indicator while waiting for data', (WidgetTester tester) async {
+    testWidgets('displays loading indicator while waiting for data',
+        (WidgetTester tester) async {
       when(mockStorage.getHighscores()).thenAnswer((_) async => []);
 
       await tester.pumpWidget(
@@ -45,7 +46,8 @@ void main() {
       expect(find.text('Error loading highscores'), findsOneWidget);
     });
 */
-    testWidgets('displays message when there are no highscores', (WidgetTester tester) async {
+    testWidgets('displays message when there are no highscores',
+        (WidgetTester tester) async {
       when(mockStorage.getHighscores()).thenAnswer((_) async => []);
 
       await tester.pumpWidget(

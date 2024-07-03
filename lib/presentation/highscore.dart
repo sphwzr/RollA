@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kniffel/domain/highscore.dart';
 import 'package:kniffel/domain/highscore_storage.dart';
-import 'package:kniffel/widget/HighscoreItem.dart';
+import 'package:kniffel/widget/highscore_item.dart';
 
 class HighscoreScreen extends StatelessWidget {
   final HighscoreStorage storage;
 
-  HighscoreScreen({super.key, required this.storage});
+  const HighscoreScreen({super.key, required this.storage});
 
   @override
   Widget build(BuildContext context) {

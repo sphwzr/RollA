@@ -78,31 +78,35 @@ class KniffelSheet extends ChangeNotifier {
   bool setSheetValues(int sectionIndex, int rowIndex, DiceRoll diceRoll) {
     bool success = false;
     if (sectionIndex == 0) {
-      _setUpperSection(rowIndex, diceRoll);
-      success = true;
+      if (upperSection[rowIndex] == -1) {
+        _setUpperSection(rowIndex, diceRoll);
+        success = true;
+      }
     } else {
-      switch (rowIndex) {
-        case 0:
-          success = _setThreeOfAKind(diceRoll);
-          break;
-        case 1:
-          success = _setFourOfAKind(diceRoll);
-          break;
-        case 2:
-          success = _setFullHouse(diceRoll);
-          break;
-        case 3:
-          success = _setSmallStreet(diceRoll);
-          break;
-        case 4:
-          success = _setLargeStreet(diceRoll);
-          break;
-        case 5:
-          success = _setKniffel(diceRoll);
-          break;
-        case 6:
-          success = _setChance(diceRoll);
-          break;
+      if (lowerSection[rowIndex] == -1) {
+        switch (rowIndex) {
+          case 0:
+            success = _setThreeOfAKind(diceRoll);
+            break;
+          case 1:
+            success = _setFourOfAKind(diceRoll);
+            break;
+          case 2:
+            success = _setFullHouse(diceRoll);
+            break;
+          case 3:
+            success = _setSmallStreet(diceRoll);
+            break;
+          case 4:
+            success = _setLargeStreet(diceRoll);
+            break;
+          case 5:
+            success = _setKniffel(diceRoll);
+            break;
+          case 6:
+            success = _setChance(diceRoll);
+            break;
+        }
       }
     }
     updateScores();
