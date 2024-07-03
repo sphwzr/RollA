@@ -30,6 +30,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         currentSheet.getSectionElementValue(sectionIndex, rowIndex);
     String elementValueString =
         elementValue >= 0 ? elementValue.toString() : '';
+    bool isNotScoreTile = rowIndex < (6 + sectionIndex);
 
     return InkWell(
       onTap: () {
@@ -41,7 +42,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         });
       },
       child: ListTile(
-        enabled: !_isDisabled,
+        enabled: !_isDisabled && isNotScoreTile,
         shape: shapeBorder,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -56,18 +57,19 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
               elementValueString,
               style: const TextStyle(fontSize: 13.0),
             ),
-            const SizedBox(width: 20),
-            TextButton(
-              onPressed: () {
-                var success =
-                    currentSheet.crossElementOut(sectionIndex, rowIndex);
-                if (_isDisabled || !success) return;
-                setState(() {
-                  _isDisabled = true;
-                });
-              },
-              child: const Icon(Icons.clear),
-            )
+            SizedBox(width: isNotScoreTile ? 20 : 40),
+            if (isNotScoreTile && elementValue == -1)
+              TextButton(
+                onPressed: () {
+                  var success =
+                      currentSheet.crossElementOut(sectionIndex, rowIndex);
+                  if (_isDisabled || !success) return;
+                  setState(() {
+                    _isDisabled = true;
+                  });
+                },
+                child: const Icon(Icons.clear),
+              )
           ],
         ),
       ),
@@ -161,8 +163,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
     );
   }
 
-  void _selectRemainingDices() {
-    var model = Provider.of<GameModel>(context);
+  void _selectRemainingDices(var model) {
     var player = model.currentPlayer;
     if (player.getNumberOfRolls() != 0 &&
         player.selectedDiceValues.length < 5) {
@@ -179,17 +180,19 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<GameModel>(context);
-    _selectRemainingDices();
+    _selectRemainingDices(model);
     return Scaffold(
       appBar: AppBar(
         title: Text('Kniffel Sheet of ${model.currentPlayer.name}'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.arrow_forward),
-      ),
+      floatingActionButton: _isDisabled
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.arrow_forward),
+            )
+          : null,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
