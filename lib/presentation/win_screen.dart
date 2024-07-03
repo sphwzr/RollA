@@ -26,7 +26,7 @@ class _WinScreenState extends State<WinScreen> {
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<GameModel>(context);
-    final HighscoreStorage storage = HighscoreStorage();
+    final HighscoreStorage storage = ImplementedHighscoreStorage();
 
     return Scaffold(
       appBar: AppBar(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kniffel/domain/highscore_storage.dart';
 import 'package:kniffel/main.dart';
 import 'package:kniffel/presentation/choose_numberof_players.dart';
 import 'package:kniffel/presentation/highscore.dart';
@@ -23,7 +24,7 @@ final router = GoRouter(
         GoRoute(
           path: '/highscore',
           parentNavigatorKey: _shellNavigatorKey,
-          builder: (context, state) => HighscoreScreen(),
+          builder: (context, state) => HighscoreScreen(storage: ImplementedHighscoreStorage()),
         ),
         GoRoute(
           path: '/rules',

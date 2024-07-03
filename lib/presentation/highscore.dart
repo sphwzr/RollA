@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kniffel/domain/highscore.dart';
 import 'package:kniffel/domain/highscore_storage.dart';
+import 'package:kniffel/widget/HighscoreItem.dart';
 
 class HighscoreScreen extends StatelessWidget {
-  final HighscoreStorage storage = HighscoreStorage();
+  final HighscoreStorage storage;
 
-  HighscoreScreen({super.key});
+  HighscoreScreen({super.key, required this.storage});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,7 @@ class HighscoreScreen extends StatelessWidget {
             itemCount: highscores.length,
             itemBuilder: (context, index) {
               final highscore = highscores[index];
-              return ListTile(
-                title: Text('${highscore.name} - ${highscore.score}'),
-                subtitle: Text('${highscore.date.toLocal()}'.split(' ')[0]),
-              );
+              return HighscoreItem(highscore: highscore, index: index);
             },
           );
         },
