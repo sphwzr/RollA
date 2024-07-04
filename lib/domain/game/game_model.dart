@@ -66,7 +66,6 @@ class GameModel extends ChangeNotifier {
     currentRound = 0;
     currentRoll = 0;
     players.clear();
-    notifyListeners();
   }
 
   Player getWinner() {

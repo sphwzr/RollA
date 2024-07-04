@@ -12,13 +12,6 @@ class ChooseNumberOfPlayers extends StatefulWidget {
 
 class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
   @override
-  void didUpdateWidget(covariant ChooseNumberOfPlayers oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    var model = Provider.of<GameModel>(context, listen: false);
-    model.resetGame();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

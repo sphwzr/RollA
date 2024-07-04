@@ -171,7 +171,8 @@ class KniffelSheet extends ChangeNotifier {
   }
 
   int getLowerSectionTotal() {
-    return lowerSection.reduce((value, element) => element > 0
+    List<int> values = lowerSection.sublist(0, 7);
+    return values.reduce((value, element) => element > 0
         ? value + element
         : value > 0
             ? value
