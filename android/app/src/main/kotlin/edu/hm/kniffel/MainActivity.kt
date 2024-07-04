@@ -1,4 +1,4 @@
-package com.example.kniffel
+package edu.hm.kniffel
 
 import io.flutter.embedding.android.FlutterActivity
 
