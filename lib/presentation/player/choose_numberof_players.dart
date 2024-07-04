@@ -11,14 +11,6 @@ class ChooseNumberOfPlayers extends StatefulWidget {
 }
 
 class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
-  List<Widget> showPlayers() {
-    return context
-        .read<GameModel>()
-        .players
-        .map((player) => Text(player.name))
-        .toList();
-  }
-
   @override
   void didUpdateWidget(covariant ChooseNumberOfPlayers oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -54,7 +46,6 @@ class _ChooseNumberOfPlayers extends State<ChooseNumberOfPlayers> {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         onPressed: () {
-          Provider.of<GameModel>(context, listen: false).resetGame();
           Navigator.push(
             context,
             MaterialPageRoute(

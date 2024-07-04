@@ -68,7 +68,11 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
                     _isDisabled = true;
                   });
                 },
-                child: const Icon(Icons.clear),
+                child: Icon(
+                  Icons.clear,
+                  color: _isDisabled ? Colors.grey : Colors.red,
+                  size: 20,
+                ),
               )
           ],
         ),
@@ -88,7 +92,9 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
         children: [
           Text(
             heading,
-            style: headingStyle,
+            style: _isDisabled
+                ? headingStyle.copyWith(color: Colors.grey)
+                : headingStyle,
           ),
         ],
       ),
@@ -148,15 +154,18 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
       builder: (context, model, child) {
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.6,
-          child: ListView.builder(
-            itemCount: headings.length,
-            itemBuilder: (context, index) {
-              if (index == 2) {
-                return _createScoreScreen(headings[index]);
-              }
-              return _createSubScreen(
-                  model.currentPlayer.kniffelSheet, index, headings[index]);
-            },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              itemCount: headings.length,
+              itemBuilder: (context, index) {
+                if (index == 2) {
+                  return _createScoreScreen(headings[index]);
+                }
+                return _createSubScreen(
+                    model.currentPlayer.kniffelSheet, index, headings[index]);
+              },
+            ),
           ),
         );
       },
@@ -180,19 +189,25 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<GameModel>(context);
+    var themeData = Theme.of(context);
+
     _selectRemainingDices(model);
     return Scaffold(
       appBar: AppBar(
         title: Text('Kniffel Sheet of ${model.currentPlayer.name}'),
+        leading: model.getCancelButton(context),
+        backgroundColor: themeData.colorScheme.primary,
+        foregroundColor: themeData.colorScheme.onPrimary,
       ),
-      floatingActionButton: _isDisabled
-          ? FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_forward),
-            )
-          : null,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: !_isDisabled
+            ? Colors.grey
+            : themeData.floatingActionButtonTheme.backgroundColor,
+        onPressed: () {
+          _isDisabled ? Navigator.pop(context) : null;
+        },
+        child: const Icon(Icons.arrow_forward),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

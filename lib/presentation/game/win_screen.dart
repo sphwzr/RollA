@@ -50,8 +50,7 @@ class _WinScreenState extends State<WinScreen> {
             ElevatedButton(
               onPressed: () {
                 storage.saveAllHighscores(model.sortPlayersByScore());
-                model.resetGame();
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                model.endGame(context);
               },
               child: const Text('Back to player selection'),
             ),

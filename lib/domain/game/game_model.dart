@@ -8,7 +8,8 @@ class GameModel extends ChangeNotifier {
   int currentRound = 0;
   int currentRoll = 0;
 
-  Player get currentPlayer => players[currentPlayerIndex];
+  Player get currentPlayer =>
+      players.isNotEmpty ? players[currentPlayerIndex] : Player('default');
 
   void addCurrentPlayerDiceValue(int value) {
     if (currentPlayer.selectedDiceValues.length < 5) {
@@ -62,7 +63,7 @@ class GameModel extends ChangeNotifier {
     currentPlayerIndex = 0;
     currentRound = 0;
     currentRoll = 0;
-    players = [];
+    players.clear();
     notifyListeners();
   }
 
@@ -113,13 +114,29 @@ class GameModel extends ChangeNotifier {
           ...currentPlayer.selectedDiceValues.map(
             (value) {
               return InkWell(
-                  onTap: () => removeCurrentPlayerDiceValue(value),
-                  child: Icon(Dice().diceIcons[value]));
+                  onTap: () =>
+                      clickable ? removeCurrentPlayerDiceValue(value) : null,
+                  child: Icon(Dice().diceIcons[value], size: 40));
             },
           ),
         ]),
         const SizedBox(height: 20)
       ],
     );
+  }
+
+  Widget getCancelButton(BuildContext context) {
+    return IconButton(
+      icon: const Icon(
+        Icons.cancel,
+        size: 30,
+      ),
+      onPressed: () => endGame(context),
+    );
+  }
+
+  void endGame(BuildContext context) {
+    resetGame();
+    Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 }

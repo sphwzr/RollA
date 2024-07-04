@@ -25,13 +25,39 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     var model = context.watch<GameModel>();
     var player = model.currentPlayer;
+    var themeData = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(player.name,
-            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Text(
+                  player.name,
+                  style: TextStyle(
+                    color: themeData.colorScheme.onPrimary,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Align(
+                  alignment: const Alignment(1, 1),
+                  child: Text(
+                      'Player: ${model.currentPlayerIndex + 1}/${model.players.length}',
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: themeData.textTheme.bodySmall?.fontSize,
+                      )),
+                ),
+              ],
+            ),
+            Text('Round: ${model.currentRound + 1}/13'),
+          ],
+        ),
+        leading: model.getCancelButton(context),
+        backgroundColor: themeData.colorScheme.primary,
+        foregroundColor: themeData.colorScheme.onPrimary,
       ),
       body: Center(
         child: Column(
