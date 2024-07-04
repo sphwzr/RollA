@@ -74,7 +74,7 @@ class _DiceRollsState extends State<DiceRolls> with TickerProviderStateMixin {
                       onTap: () {
                         var model =
                             Provider.of<GameModel>(context, listen: false);
-                        if (model.currentRoll < 3) {
+                        if (model.currentRoll > 0 && model.currentRoll < 3) {
                           if (dice.isSelected) {
                             model.removeCurrentPlayerDiceValue(dice.diceValue);
                             model.currentPlayer.toggleSelectedDiceIndex(i);
