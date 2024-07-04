@@ -135,7 +135,7 @@ class _KniffelSheetScreenState extends State<KniffelSheetScreen> {
                         entry.value.toString(),
                         style: const TextStyle(fontSize: 13.0),
                       ),
-                      const SizedBox(width: 150),
+                      const SizedBox(width: 100),
                     ],
                   ),
                 );

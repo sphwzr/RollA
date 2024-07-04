@@ -154,7 +154,8 @@ class KniffelSheet extends ChangeNotifier {
   }
 
   int getUpperSectionSum() {
-    return upperSection.reduce((value, element) => element > 0
+    List<int> values = upperSection.sublist(0, 6);
+    return values.reduce((value, element) => element > 0
         ? value + element
         : value > 0
             ? value
@@ -181,7 +182,19 @@ class KniffelSheet extends ChangeNotifier {
     return getUpperSectionTotal() + getLowerSectionTotal();
   }
 
+  void _setUpperSectionScores() {
+    upperSection[6] = getUpperSectionSum();
+    upperSection[7] = getUpperSectionBonus();
+    upperSection[8] = getUpperSectionTotal();
+  }
+
+  void _setLowerSectionScore() {
+    lowerSection[7] = getLowerSectionTotal();
+  }
+
   void updateScores() {
+    _setUpperSectionScores();
+    _setLowerSectionScore();
     scores[0] = getUpperSectionTotal();
     scores[1] = getLowerSectionTotal();
     scores[2] = getFinalScore();
